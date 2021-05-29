@@ -1,28 +1,28 @@
 class Node {
-  constructor(card, number, next = null) {
-    this.card = card;
+  constructor(color, number, nextNode = null) {
+    this.color = color;
     this.number = number;
-    this.next = next;
+    this.nextNode = nextNode;
   }
-  firstCard = () => `${this.card}(${this.number})`;
+  getData = () => `${this.color}(${this.number})`;
 }
 
 class Stack {
   constructor(limit = 20) {
-    this.top = null;
-    this.length = 0;
+    this.topNode = null;
+    this.size = 0;
     this.limit = limit;
   }
 
-  isFull = () => this.length === this.limit;
+  isFull = () => this.size === this.limit;
 
-  isEmpty = () => this.length === 0;
+  isEmpty = () => this.size === 0;
 
   peek = () => {
     if (this.isEmpty()) {
       console.log("Oh no! The deck is empty.");
     } else {
-      return this.top.firstCard();
+      return this.topNode.getData();
     }
   };
 
@@ -30,9 +30,9 @@ class Stack {
     if (this.isFull()) {
       console.log("Oops! The deck is full.");
     } else {
-      const newNode = new Node(color, number, this.top);
-      this.top = newNode;
-      this.length++;
+      const newNode = new Node(color, number, this.topNode);
+      this.topNode = newNode;
+      this.size++;
     }
   };
 
@@ -40,10 +40,10 @@ class Stack {
     if (this.isEmpty()) {
       console.log("Oh no! The deck is empty.");
     } else {
-      const popped = this.top;
-      this.top = popped.next;
-      this.length--;
-      return popped.firstCard();
+      const popped = this.topNode;
+      this.topNode = popped.nextNode;
+      this.size--;
+      return popped.getData();
     }
   };
 
